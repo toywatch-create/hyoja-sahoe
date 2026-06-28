@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>세특 탐구 신문 — 효자고 2학년 사회와 문화</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Song+Myung&family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --paper:#E7E8E5;
+  --card:#FFFFFF;
+  --ink:#1A1A1A;
+  --ink-soft:#5A5C57;
+  --rule:#1A1A1A;
+  --accent:#9C2B1D;
+  --accent-soft:#ECE3E2;
+  --line:#C7C8C3;
+  --shadow:0 8px 18px -12px rgba(20,20,16,0.3);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  background-image:
+    radial-gradient(rgba(0,0,0,0.05) 0.6px, transparent 0.6px);
+  background-size:4px 4px;
+  color:var(--ink);
+  font-family:'Noto Sans KR',sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{
+  max-width:760px;
+  margin:0 auto;
+  padding:0 18px 90px;
+}
+
+/* ---------- masthead ---------- */
+.masthead{ padding:40px 0 18px; text-align:center; }
+.kicker{
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.72rem;
+  letter-spacing:.08em;
+  color:var(--ink-soft);
+  text-transform:uppercase;
+}
+.paper-title{
+  font-family:'Song Myung',serif;
+  font-size:clamp(2.4rem,9vw,3.6rem);
+  margin:10px 0 14px;
+  letter-spacing:.01em;
+}
+.rule-thick{ height:4px; background:var(--rule); margin-bottom:3px; }
+.rule-thin{ height:1px; background:var(--rule); margin-bottom:10px; }
+.masthead-meta{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:6px 14px;
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.68rem;
+  color:var(--ink-soft);
+  border-bottom:1px solid var(--line);
+  padding-bottom:10px;
+}
+.standfirst{
+  font-family:'Gowun Batang',serif;
+  font-style:italic;
+  font-size:1rem;
+  color:var(--ink-soft);
+  text-align:center;
+  max-width:560px;
+  margin:18px auto 6px;
+  line-height:1.65;
+}
+.source-note{
+  text-align:center;
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.68rem;
+  color:var(--ink-soft);
+  margin-top:6px;
+}
+
+/* ---------- worked example (예시 기사) ---------- */
+.example-wrap{ margin-top:30px; }
+.example-flag{
+  display:inline-block;
+  background:var(--accent);
+  color:#fff;
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.7rem;
+  letter-spacing:.05em;
+  padding:.25rem .7rem;
+  margin-bottom:-1px;
+}
+.example-article{
+  background:var(--card);
+  border:2px solid var(--ink);
+  padding:20px 22px;
+  box-shadow:var(--shadow);
+}
+.example-kicker{
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.68rem;
+  color:var(--accent);
+  margin-bottom:6px;
+}
+.example-headline{
+  font-family:'Song Myung',serif;
+  font-size:1.3rem;
+  line-height:1.4;
+  margin:0 0 10px;
+}
+.example-lead{
+  font-family:'Gowun Batang',serif;
+  font-size:.95rem;
+  line-height:1.75;
+  margin:0 0 14px;
+}
+.example-lead::first-letter{
+  font-family:'Song Myung',serif;
+  font-size:2.7em;
+  float:left;
+  line-height:.8;
+  padding:.05em .08em 0 0;
+  color:var(--accent);
+}
+.example-body{ border-top:1px dashed var(--line); padding-top:14px; }
+.example-note{
+  text-align:center;
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.7rem;
+  color:var(--ink-soft);
+  margin:10px 0 0;
+}
+
+/* ---------- toc / front page index ---------- */
+.toc-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  border-top:3px double var(--rule);
+  border-bottom:1px solid var(--rule);
+  padding:10px 0;
+  margin:36px 0 18px;
+}
+.toc-head h2{
+  font-family:'Song Myung',serif;
+  font-size:1.15rem;
+  margin:0;
+  letter-spacing:.02em;
+}
+.btn-toggle-all{
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.74rem;
+  background:none;
+  border:1px solid var(--ink);
+  color:var(--ink);
+  padding:.35rem .8rem;
+  cursor:pointer;
+}
+.btn-toggle-all:hover{ background:var(--ink); color:var(--paper); }
+
+/* ---------- section (단원) ---------- */
+.section-block{ margin-bottom:6px; }
+.section-header{
+  width:100%;
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+  padding:12px 4px;
+  background:transparent;
+  border:none;
+  border-top:4px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+  cursor:pointer;
+  text-align:left;
+  font-family:inherit;
+  -webkit-tap-highlight-color:transparent;
+}
+.section-label{
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.7rem;
+  color:var(--accent);
+  border:1px solid var(--accent);
+  padding:.1rem .45rem;
+  white-space:nowrap;
+}
+.section-title{
+  font-family:'Song Myung',serif;
+  font-size:1.25rem;
+  flex:1;
+}
+.section-count{
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.68rem;
+  color:var(--ink-soft);
+  white-space:nowrap;
+}
+.section-chev{ color:var(--ink-soft); transition:transform .25s; font-size:.8rem; }
+.section-block.open .section-chev{ transform:rotate(180deg); }
+.section-body[hidden]{ display:none; }
+.section-body{ padding-top:4px; }
+
+/* ---------- std (기사 묶음) ---------- */
+.std-group{ padding:22px 0; border-bottom:1px solid var(--line); }
+.std-group:last-child{ border-bottom:none; }
+.std-byline{
+  display:flex;
+  gap:10px;
+  align-items:baseline;
+  flex-wrap:wrap;
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.68rem;
+  color:var(--ink-soft);
+  margin-bottom:6px;
+}
+.std-byline .src-tag{
+  background:var(--ink);
+  color:var(--paper);
+  padding:.1rem .45rem;
+}
+.std-standfirst{
+  font-family:'Gowun Batang',serif;
+  font-size:.95rem;
+  color:var(--ink-soft);
+  font-style:italic;
+  margin:0 0 10px;
+  line-height:1.55;
+}
+.std-keywords{
+  font-size:.74rem;
+  color:var(--ink-soft);
+  margin-bottom:14px;
+}
+.std-keywords b{ color:var(--ink); font-weight:600; }
+
+/* ---------- topic row (간단 목록) ---------- */
+.topic-row{
+  padding:14px 0;
+  border-top:1px solid var(--line);
+}
+.topic-row:first-of-type{ border-top:1px solid var(--ink); }
+.topic-kicker{
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.66rem;
+  color:var(--accent);
+  margin-bottom:4px;
+}
+.topic-title{
+  font-family:'Song Myung',serif;
+  font-size:1.05rem;
+  line-height:1.45;
+  margin:0 0 10px;
+}
+.tab-expand{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  background:var(--ink);
+  color:#fff;
+  border:none;
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.74rem;
+  font-weight:600;
+  padding:.45rem .85rem;
+  cursor:pointer;
+  letter-spacing:.02em;
+}
+.tab-expand:hover, .tab-expand.active{ background:var(--accent); }
+.tab-expand .tab-icon{ font-size:.7rem; }
+
+.topic-detail[hidden]{ display:none; }
+.topic-detail{
+  margin-top:12px;
+  padding:14px 16px;
+  background:var(--accent-soft);
+  border-left:3px solid var(--accent);
+}
+.detail-block{ margin-bottom:10px; }
+.detail-block:last-child{ margin-bottom:0; }
+.detail-block.guide-block{
+  border-top:1px dashed var(--accent);
+  padding-top:10px;
+  font-style:italic;
+}
+.detail-tag{
+  display:inline-block;
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.66rem;
+  font-weight:600;
+  color:var(--accent);
+  margin-bottom:3px;
+}
+.detail-text{
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:.86rem;
+  line-height:1.6;
+  color:var(--ink);
+  margin:0;
+}
+
+/* ---------- sidebar box (관련 진로 & 자료) ---------- */
+.sidebar-box{
+  border:2px solid var(--ink);
+  padding:16px 18px;
+  margin-top:14px;
+  position:relative;
+}
+.sidebar-box::before{
+  content:"참고 자료 · 세특 활동집";
+  position:absolute;
+  top:-11px; left:14px;
+  background:var(--paper);
+  padding:0 8px;
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  font-size:.68rem;
+  letter-spacing:.04em;
+  color:var(--accent);
+}
+.sidebar-box h4{
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:.74rem;
+  font-weight:700;
+  margin:10px 0 6px;
+  text-transform:uppercase;
+  letter-spacing:.03em;
+  color:var(--ink-soft);
+}
+.sidebar-box h4:first-of-type{ margin-top:0; }
+.dept-chips span{
+  display:inline-block;
+  border:1px solid var(--ink-soft);
+  padding:.22rem .55rem;
+  margin:0 5px 5px 0;
+  font-size:.76rem;
+}
+.book{ font-size:.84rem; margin-bottom:4px; }
+.book .meta{ color:var(--ink-soft); }
+.desk-note{
+  font-family:'Gowun Batang',serif;
+  font-style:italic;
+  font-size:.85rem;
+  color:var(--ink-soft);
+}
+
+/* ---------- footer ---------- */
+footer{
+  text-align:center;
+  margin-top:50px;
+  font-size:.72rem;
+  color:var(--ink-soft);
+  font-family:'IBM Plex Mono','Noto Sans KR',sans-serif;
+  border-top:3px double var(--rule);
+  padding-top:14px;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{ animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kicker">효자고등학교 2학년 사회와 문화 · 특별호</div>
+    <h1 class="paper-title">세특 탐구 신문</h1>
+    <div class="rule-thick"></div>
+    <div class="rule-thin"></div>
+    <div class="masthead-meta">
+      <span>금성출판사 교과서 연계판</span>
+      <span>학기말 세특 탐구 가이드</span>
+      <span>발행 · 효자고 사회문화부</span>
+    </div>
+    <p class="standfirst">아래 예시처럼 서론·본론·결론으로 탐구를 설계해 보세요. 본론은 ① 개념 정리 ② 교과서 사례 분석 ③ 자료로 검증·확장하기, 세 단계로 씁니다.</p>
+    <p class="source-note">사례·이론·통계: 금성출판사 『사회와 문화』 교과서 &nbsp;·&nbsp; 주제·진로·도서·GUIDE: 효자고 세특 탐구 주제 활동집</p>
+  </header>
+
+  <div class="example-wrap">
+    <span class="example-flag">예시 기사 — 이렇게 써 보세요</span>
+    <div class="example-article" id="exampleArticle"></div>
+    <p class="example-note">↓ 아래 차례의 다른 주제들도 같은 틀(서론-본론①②③-결론)로 써 보면 됩니다.</p>
+  </div>
+
+  <div class="toc-head">
+    <h2>오늘의 지면</h2>
+    <button class="btn-toggle-all" id="toggleAllBtn">전체 펼치기</button>
+  </div>
+
+  <div id="unitContainer"></div>
+
+  <footer>효자고등학교 2학년 사회와 문화 · 학기말 세특 탐구 신문</footer>
+</div>
+
+<script>
+const DATA = [
+  // ---- I. 사회현상의 이해와 탐구 ----
+  { unit:"I", unitTitle:"사회현상의 이해와 탐구", code:"12사문01-01", textbookPages:"12~21쪽",
+    standard:"사회현상의 탐구를 위해 사회현상의 특징에 대한 이해와 사회학적 상상력이 필요함을 인식하고, 사회현상에 대한 다양한 관점을 비교한다.",
+    keywords:["사회현상","사회학적 상상력","기능론","갈등론","상징적 상호작용론"],
+    departments:["사회학과","언론정보학과","지리학과","행정학과"],
+    topics:[
+      { text:"사회현상과 자연현상의 특징 비교 분석",
+        mid:"교과서에 나온 지진 재난 문자 사례(지진 규모와 기관별 대응 차이)를 활용해 자연현상(지진)과 사회현상(재난 문자 발송 여부)을 구분해 분석한다",
+        high:"교과서의 '우리나라 혼인 건수와 조혼인율' 국가별 비교 통계를 활용해 혼인이라는 사회현상의 보편성과 특수성을 통계로 검증한다" },
+      { text:"거시적 관점과 미시적 관점의 차이 비교 분석",
+        mid:"교과서의 '초등학생 희망 직업 변화'(2012→2022) 통계를 거시적 관점(사회 구조 변화)과 미시적 관점(개인 선택) 두 가지로 각각 분석한다",
+        high:"밀스가 제시한 실업 사례처럼, 자신의 진로 고민 하나를 거시적·미시적 관점으로 동시에 분석하는 보고서를 작성한다" },
+      { text:"기능론과 갈등론의 입장에서 학교와 입시 제도 탐구",
+        mid:"교과서 단원 마무리의 갑(기능론적 사고)·을(갈등론적 사고) 대화를 참고해 최근 입시 제도 개편을 두 관점으로 각각 평가한다",
+        high:"기능론·갈등론에 더해 상징적 상호작용론까지 적용해 학교 현장의 한 사례(예: 성적에 따른 줄세우기)를 세 관점에서 다각도로 재해석한다" },
+      { text:"기든스의 사회학적 상상력의 작동 원리 및 필요성 탐구",
+        mid:"밀스의 『사회학적 상상력』 속 실업 사례를 자신의 진로 고민에 적용해, 개인 문제처럼 보이는 것을 사회 구조 차원에서 재해석하는 글을 써본다",
+        high:"'초등학생 희망 직업 변화' 통계(2012→2022)를 사회학적 상상력으로 분석해, 개인적 선택처럼 보이는 직업 선호 변화의 사회적 배경을 논증한다" }
+    ],
+    books:[
+      {title:"도시 보는 사회학", author:"김신혁", publisher:"계단", year:2025},
+      {title:"세상 멋져 보이는 것들의 사회학", author:"오찬호", publisher:"북트리거", year:2024},
+      {title:"사회학의 핵심 개념들", author:"앤서니 기든스 외(김봉석 역)", publisher:"동녘", year:2022}
+    ],
+    guide:"사회현상을 이해할 때는 사회학적 상상력에 기초하여 역사적 맥락이나 구조적 요인을 함께 고려하여 새로운 해석을 시도하며 탐구한다."
+  },
+  { unit:"I", unitTitle:"사회현상의 이해와 탐구", code:"12사문01-02", textbookPages:"22~29쪽",
+    standard:"사회현상에 대한 양적 연구 방법과 질적 연구 방법의 특징 및 연구 절차를 비교하고, 각 연구 방법을 활용한 연구 사례를 분석한다.",
+    keywords:["양적 연구 방법","질적 연구 방법","개념의 조작적 정의","직관적 통찰"],
+    departments:["사회학과","역사학과","윤리학과","지리학과"],
+    topics:[
+      { text:"사회현상에 대한 양적 연구 활용 사례 탐구",
+        mid:"교과서의 '급식실 무질서 해소' 탐구 보고서 예시처럼, 가설 설정→질문지법→통계 분석 절차를 그대로 따라 교내 현상 하나를 양적으로 조사한다",
+        high:"급식실 캠페인 사례의 가설·변수·측정 척도 설정 방식을 비판적으로 검토하고, 더 정교한 척도로 보완한 양적 연구를 설계한다" },
+      { text:"사회현상에 대한 질적 연구 활용 사례 탐구",
+        mid:"교과서의 '중학교 수업 방해 행위' 면접 연구처럼, 학년별 면담을 설계해 교내 한 현상을 질적으로 탐구한다",
+        high:"수업 방해 행위 연구의 표본 수(27명)와 면담 설계를 분석해 질적 연구의 일반화 한계를 논증한다" },
+      { text:"양적 연구 방법과 질적 연구 방법의 절차 비교 분석",
+        mid:"자율 동아리 활동 연구(양적)와 수업 방해 행위 연구(질적)를 교과서 사례 그대로 비교해 절차상의 차이를 정리한다",
+        high:"두 연구의 가설 설정 여부, 자료 수집 방법, 결론 도출 방식을 표로 비교하고 각 방법의 타당도·신뢰도 확보 전략을 평가한다" },
+      { text:"양적 연구 방법과 질적 연구 방법의 융합 사례 탐구",
+        mid:"급식실 캠페인(양적 연구)에 면접법을 더해, 학생들의 인식이 왜 바뀌었는지까지 알아보는 혼합연구로 재설계한다",
+        high:"양적 자료(질서 의식 점수 변화)와 질적 자료(인터뷰)를 모두 활용한 혼합연구를 설계해 두 자료가 어떻게 상호 보완되는지 검증한다" }
+    ],
+    books:[
+      {title:"통계 모르고 뉴스 볼 수 있어?", author:"구정화", publisher:"다른", year:2022},
+      {title:"인공지능을 활용한 사회 과학 연구 방법", author:"김태용", publisher:"학지사", year:2024},
+      {title:"질적 연구자 좌충우돌기", author:"한국문화사회학회", publisher:"한울아카데미", year:2018}
+    ],
+    guide:"양적 연구와 질적 연구의 연구 절차와 특징을 비교하고, 연구 주제에 따라 적합한 연구 방식이 다를 수 있음을 이해한다."
+  },
+  { unit:"I", unitTitle:"사회현상의 이해와 탐구", code:"12사문01-03", textbookPages:"30~39쪽",
+    standard:"사회현상에 대한 다양한 자료 수집 방법의 특징을 비교하고, 각 자료 수집 방법을 활용한 연구 사례를 분석한다.",
+    keywords:["문헌 연구법","질문지법","실험법","면접법","참여 관찰법"],
+    departments:["문화인류학과","문헌정보학과","사회학과","역사학과"],
+    topics:[
+      { text:"문헌 연구법을 활용한 연구 사례 탐구",
+        mid:"우현서루 연구처럼 신문·잡지 기사, 기록물 등 다양한 1차 문헌을 찾아 한 사회현상의 역사적 변화를 추적한다",
+        high:"우현서루 연구가 활용한 문헌의 종류(기록물, 신문, 잡지, 논문)를 분석하고, 문헌만으로 검증하기 어려운 지점을 찾아 보완할 자료를 제안한다" },
+      { text:"면접법과 참여 관찰법의 특징 비교 분석",
+        mid:"교내 동아리를 대상으로 면접법을 설계해보고, 우현서루 연구의 문헌 연구법과 어떤 자료 차이가 나는지 비교한다",
+        high:"참여관찰자·완전관찰자 입장에 따른 객관성 문제를 분석하고, 연구자의 위치가 자료에 미치는 영향을 사례로 평가한다" },
+      { text:"실험법의 장단점 및 연구 윤리 문제 탐구",
+        mid:"교과서의 폭력적 영상물 실험 사례(중단 요청을 무시하고 진행한 사례)에서 어떤 연구 윤리가 위반되었는지 구체적으로 짚어낸다",
+        high:"해당 실험을 윤리적으로 재설계한다면 어떤 안전장치(사전 동의, 중단권 보장 등)가 필요한지 대안적 연구 설계를 제안한다" },
+      { text:"질문지 작성 시 유의 사항 및 표본 추출의 중요성 탐구",
+        mid:"교과서의 '매점 이용 실태' 설문 문항을 분석해 유도성·모호성이 있는 문항을 찾아 직접 수정한다",
+        high:"같은 모집단이라도 표본 추출 방법(무작위/편의)에 따라 매점 이용 실태 조사 결과가 어떻게 달라질지 모의 비교한다" }
+    ],
+    books:[
+      {title:"내 맘대로 요리하는 설문 조사", author:"유기종", publisher:"행일미디어", year:2023},
+      {title:"초보 연구자를 위한 질적 자료 분석 가이드", author:"한유리", publisher:"박영스토리", year:2018},
+      {title:"서태평양의 항해자들", author:"브로니슬라프 말리노프스키(최협 역)", publisher:"민속원", year:2024}
+    ],
+    guide:"사회현상 연구에서 자료 수집 방법은 연구 목적·대상, 시간·비용, 자료의 신뢰성 등을 고려해 선택한다."
+  },
+  { unit:"I", unitTitle:"사회현상의 이해와 탐구", code:"12사문01-04", textbookPages:"40~47쪽",
+    standard:"사회현상의 탐구에서 발생하는 연구자의 가치 개입 및 연구 윤리 관련 쟁점을 토론하고, 연구 윤리를 준수하며 사회현상에 대한 탐구를 수행한다.",
+    keywords:["객관적 태도","개방적 태도","성찰적 태도","상대주의적 태도","가치 중립","연구 윤리"],
+    departments:["문화인류학과","빅데이터학과","심리학과","윤리학과"],
+    topics:[
+      { text:"사회현상 탐구자가 지켜야 할 윤리 강령 제작하기",
+        mid:"교과서가 제시한 연구 윤리 위반 유형(자료 위조, 무단 누락, 목적 외 활용, 동의 없는 수집, 익명성 미보장)을 기준으로 우리 반 탐구활동 윤리 체크리스트를 만든다",
+        high:"시간 부족으로 분석을 마치지 못해 결과를 허위로 작성해 제출한 교과서 사례를 분석해, 윤리를 지키기 어렵게 만드는 구조적 요인(마감 압박 등)까지 짚어 개선안을 제안한다" },
+      { text:"사회현상 탐구에서 객관적 태도와 개방적 태도의 비교",
+        mid:"동일한 사회현상에 대해 서로 다른 입장의 자료를 모두 찾아 읽고 자신의 선입견이 어떻게 수정되었는지 탐구 과정을 기록한다",
+        high:"객관적 태도와 개방적 태도가 충돌하는 논쟁적 연구 사례를 분석해 두 태도를 균형 있게 유지하는 방법론적 기준을 제시한다" },
+      { text:"사회현상 탐구 과정에서 타인의 저작물 활용 시 유의점 탐구",
+        mid:"탐구보고서 작성 시 발생할 수 있는 저작권·인용 오류 유형을 정리해 올바른 인용 체크리스트를 제작한다",
+        high:"AI 챗봇을 활용한 탐구 과정에서 발생하는 저작권·출처 검증 문제를 사례 중심으로 분석하고 학생 연구자를 위한 가이드라인을 제안한다" },
+      { text:"사회현상 탐구에서 연구자의 가치 중립과 가치 개입 구분 사례 탐구",
+        mid:"교과서의 '매점 이용 실태' 설문 문항을 분석해, 질문 설계 단계에서 연구자의 가치가 어떻게 개입될 수 있는지 찾아본다",
+        high:"연구의 주제 선정 단계와 결과 해석 단계에서 가치 개입이 불가피한 이유를 베버의 이론으로 논증하고, 매점 설문 사례에 적용해 가치중립을 지키는 절차를 제안한다" }
+    ],
+    books:[
+      {title:"행동 과학 연구 방법", author:"김초복", publisher:"학지사", year:2024},
+      {title:"청소년을 위한 사회문제 탐구 에세이", author:"구정화", publisher:"해냄", year:2024},
+      {title:"인간 대상 연구 윤리", author:"데이비드 레스닉(이선주 역)", publisher:"학지사메디컬", year:2024}
+    ],
+    guide:"연구자의 가치 개입과 가치 중립이 모두 필요한 이유를 탐구하고, 연구의 각 단계에서 이를 구분하여 적용한다."
+  },
+  // ---- II. 사회 구조와 사회 변동 ----
+  { unit:"II", unitTitle:"사회 구조와 사회 변동", code:"12사문02-01", textbookPages:"58~67쪽",
+    standard:"사회 구조와 개인의 관계에 대한 이해를 바탕으로 개인의 사회화 과정, 사회화 기관 및 유형을 설명하고, 사회화에 대한 서로 다른 이론적 관점을 비교한다.",
+    keywords:["사회 구조","사회 실재론","사회 명목론","사회화","사회화 기관"],
+    departments:["사회학과","언론정보학과","철학과","행정학과"],
+    topics:[
+      { text:"사회화 기관의 종류 및 특성 탐구",
+        mid:"교과서의 가족·또래집단·학교·직장·대중매체 5가지 사회화 기관 특성을 자신의 경험에 대입해 시기별로 정리해 비교한다",
+        high:"북한 이탈 주민이 '하나원'에서 거치는 재사회화 과정을 사회화 기관 이론으로 분석하고, SNS 시대에 맞는 새로운 사회화 기관 모형을 제안한다" },
+      { text:"사회 실재론과 사회 명목론 입장에서 '취향'의 본질 탐구",
+        mid:"교과서의 '경기 승리·패배 팀 감독 인터뷰' 활동처럼, 또래집단 내 유행하는 취향을 사회 실재론(팀워크)과 사회 명목론(개인 기량) 두 관점으로 각각 설명한다",
+        high:"알고리즘 추천 시스템이 만드는 '취향'을 사회 실재론·명목론의 틀로 재해석하고, 두 관점을 조화시킨 제3의 설명을 제시한다" },
+      { text:"가정의 사회화 기능이 기본 생활 습관 형성에 미치는 영향 탐구",
+        mid:"뒤르켐과 보울스가 학교 교육을 보는 상반된 시각(기능론 vs 갈등론)을 가정의 사회화 기능에도 적용해 비교한다",
+        high:"쿨리의 '거울 자아' 이론과 미드의 '주체적 자아(I)·객체적 자아(Me)' 이론을 가정에서의 사회화 사례에 적용해, 자아 형성 과정을 단계별로 분석한다" },
+      { text:"서로 다른 사회에서 자란 쌍둥이의 가치관 비교를 통한 사회화 과정 분석",
+        mid:"분리 양육된 쌍둥이 연구 자료를 조사해 유전과 환경 중 어느 쪽이 가치관 형성에 더 크게 작용했는지 비교 분석한다",
+        high:"쌍둥이 연구의 방법론적 한계를 비판적으로 검토하고, 일제 강점기 학교 사회화 사례처럼 동일 제도가 다른 개인에게 다르게 내면화된 사례를 찾아 비교한다" }
+    ],
+    books:[
+      {title:"탈사회의 사회학", author:"김문조 외", publisher:"한울아카데미", year:2022},
+      {title:"나와 너의 사회 과학", author:"우석훈", publisher:"김영사", year:2011},
+      {title:"파리 대왕", author:"윌리엄 골딩(이덕형 역)", publisher:"문예출판사", year:2024}
+    ],
+    guide:"주요 사회화 기관이 어떤 역할을 하는지 구체적 사례와 함께 분석하며, 사회화에 대한 서로 다른 관점을 균형 있게 비교한다."
+  },
+  { unit:"II", unitTitle:"사회 구조와 사회 변동", code:"12사문02-02", textbookPages:"68~77쪽",
+    standard:"사회 집단 및 사회 조직의 유형과 변화 양상에 대한 이해를 바탕으로 사회 집단 및 사회 조직이 개인의 사회생활과 사회적 관계에 미치는 영향을 설명한다.",
+    keywords:["사회 집단","사회 조직","자발적 결사체","관료제"],
+    departments:["사회학과","문화인류학과","아동가족학과","행정학과"],
+    topics:[
+      { text:"'나'의 소속 집단과 집단 유형 분류에 관한 탐구",
+        mid:"쿨리의 '원초 집단' 개념과 1차·2차 집단 구분을 활용해 자신이 속한 집단 5개 이상을 분류하고 비교한다",
+        high:"같은 집단이 상황에 따라 내집단이 되기도 외집단이 되기도 하는 사례를 찾아, 내집단·외집단 구분이 고정적이지 않음을 논증한다" },
+      { text:"현대 사회에서 자발적 결사체 증가의 원인 탐구",
+        mid:"교과서의 '자발적 결사체는 공식 조직인가, 비공식 조직인가?' 질문에 직접 답을 내리고, 친목 집단·시민단체·이익단체 중 하나를 사례로 검증한다",
+        high:"자발적 결사체 증가가 사회 자본 이론과 어떻게 연결되는지 분석하고, 온라인 기반 자발적 결사체가 기존 분류 기준에 들어맞는지 검토한다" },
+      { text:"관료제에서 팀제로의 전환 배경 및 그 효과 탐구",
+        mid:"찰리 채플린의 영화 「모던 타임즈」에 나타난 관료제의 한계(레드 테이프 현상 등)를 실제 조직 사례와 연결해 분석한다",
+        high:"관료제·팀제·네트워크형 조직 세 형태를 베버의 관료제 이론을 기준으로 비교하고, 어떤 조건에서 어느 형태가 더 효과적인지 논증한다" },
+      { text:"공식 조직과 비공식 조직의 사례 조사 및 특성 비교 탐구",
+        mid:"학교라는 공식 조직 안에 존재하는 비공식 조직(동아리, 친한 무리 등)을 직접 도식화해 상호작용을 분석한다",
+        high:"비공식 조직이 공식 조직의 목표 달성에 긍정·부정적으로 작용한 사례를 비교 분석해 조직 관리에의 시사점을 도출한다" }
+    ],
+    books:[
+      {title:"조직 문화 통찰", author:"김성준", publisher:"클라우드나인", year:2019},
+      {title:"사회 안의 조직, 조직 안의 사회", author:"한준", publisher:"다산출판사", year:2022},
+      {title:"서로가 아니라면 우리가 누구에게", author:"린 시걸(정소영 역)", publisher:"니케북스", year:2025}
+    ],
+    guide:"사회 집단 및 사회 조직을 분류하는 데 중점을 두기보다 다양한 사회 집단 및 사회 조직이 복합적으로 개인의 삶에 영향을 미침을 이해한다."
+  },
+  { unit:"II", unitTitle:"사회 구조와 사회 변동", code:"12사문02-03", textbookPages:"78~87쪽",
+    standard:"일탈 행동의 발생 요인이나 특성을 설명하는 다양한 일탈 이론을 비교하고, 일탈 행동에 대한 사회 통제의 유형과 사회 통제의 필요성 및 문제점을 분석한다.",
+    keywords:["일탈 행동","아노미 이론","낙인 이론","차별적 교제 이론","사회 통제"],
+    departments:["경찰행정학과","법학과","사회학과","심리학과"],
+    topics:[
+      { text:"일탈의 상대성을 보여 주는 사례 조사 및 탐구",
+        mid:"교과서의 '잡초 제거도 범죄가 되나요?' 사례처럼, 한 행동이 시대·장소에 따라 일탈로 규정되는지 여부가 달라지는 사례를 추가로 조사한다",
+        high:"경찰청 「사이버 범죄 트렌드」 통계를 활용해, 디지털 시대에 새롭게 일탈로 규정된 행동의 변화 양상을 분석한다" },
+      { text:"일탈 이론을 적용하여 '나'의 일탈 행동 경험 분석",
+        mid:"뒤르켐의 아노미 이론과 머튼의 아노미 이론의 차이를 비교한 뒤, 자신의 작은 일탈 경험에 두 이론을 각각 적용해 본다",
+        high:"퀴니의 비판 범죄학 이론(지배 계급에 유리한 방향으로 일탈이 규정된다)을 적용해, 사회적 약자에게 더 가혹하게 적용되는 일탈 규정 사례를 찾아 비판적으로 분석한다" },
+      { text:"학교에서 이루어지는 사회 통제 유형과 그 효과성 탐구",
+        mid:"차별 교제 이론을 적용해, 교내 상벌점제가 또래 집단과의 접촉을 통한 일탈 학습을 얼마나 차단하는지 분석한다",
+        high:"뒤르켐의 『자살론』에서 제시한 사회 통합과 통제의 관계를 학교라는 작은 사회에 적용해, 상벌점제의 통합 효과를 평가한다" },
+      { text:"일탈 행동에 대한 사회 통제의 필요성과 문제점에 대한 비판적 분석",
+        mid:"안진의 「비판 범죄학의 문제 영역에 대한 일 고찰」 논문의 핵심 주장을 정리하고, 이를 뒷받침하거나 반박할 국내 사례를 찾아본다",
+        high:"퀴니의 비판 범죄학 관점에서 사회 통제 강화가 누구에게 유리하게 작동하는지 논증하고, CCTV 확대 등 실제 통제 강화 정책을 사례로 검증한다" }
+    ],
+    books:[
+      {title:"다시 쓰는 자살론", author:"김명희", publisher:"그린비", year:2025},
+      {title:"이상한 정상가족", author:"김희경", publisher:"동아시아", year:2022},
+      {title:"나는 왜 소년범을 변호했을까", author:"김광민", publisher:"인물과사상사", year:2023}
+    ],
+    guide:"일탈 행동을 설명하는 다양한 이론 각각이 강조하는 발생 요인과 특성을 실제 사례와 연결해 탐구한다."
+  },
+  { unit:"II", unitTitle:"사회 구조와 사회 변동", code:"12사문02-04", textbookPages:"88~99쪽",
+    standard:"사회 변동이 다양한 요인의 복합적인 상호 작용의 산물이라는 점을 설명하고, 현대 사회의 변동 과정에서 나타나는 다양한 사회 운동의 유형과 특징을 탐구한다.",
+    keywords:["사회 변동","정보 사회","세계화","저출산·고령화","사회 운동"],
+    departments:["문헌정보학과","사회복지학과","역사학과","환경공학과"],
+    topics:[
+      { text:"코로나19 팬데믹 이후 학교생활의 변화 모습 탐구",
+        mid:"진화론·순환론 관점 중 하나를 골라 코로나19 전후 학교생활 변화가 어느 관점에 더 부합하는지 분석한다",
+        high:"코로나19가 만든 변화 중 일시적인 것과 구조적으로 정착된 것을 뒤르켐과 소로킨이 사회 변동을 보는 시각으로 각각 재해석한다" },
+      { text:"인공지능 등 기술 발전이 미래 사회에 미칠 영향 탐구",
+        mid:"AI가 설교하는 예배 사례처럼, AI가 자신의 일상 영역(학습, 진로 등) 하나에 미치는 영향을 구체적으로 조사한다",
+        high:"조지 오웰의 『1984』에 나타난 '빅 브라더' 감시 사회 묘사를 AI 기술 발전과 연결해, 기술이 가져올 사회 변동을 낙관·비관 두 시각에서 비판적으로 평가한다" },
+      { text:"보수적 사회 운동과 복고적 사회 운동의 비교 및 사례 탐구",
+        mid:"교과서의 '기념일로 본 사회 운동' 사례처럼, 특정 기념일에 얽힌 사회 운동을 찾아 그 성격이 보수적인지 복고적인지 분석한다",
+        high:"신사회 운동의 특징을 기준으로, 최근 등장한 사회 운동이 전통적 사회 운동과 어떻게 다른지 비교 분석한다" },
+      { text:"19세기 영국에서 전개된 러다이트 운동의 원인과 영향 탐구",
+        mid:"증기 기관의 발명이 사회 변동을 일으킨 과정을 추적하고, 그 변동에 대한 저항으로서 러다이트 운동을 위치시켜본다",
+        high:"세계화 속 자원 민족주의 사례처럼, 기술·경제 변화에 대한 저항이 오늘날 어떤 형태로 나타나는지 러다이트 운동과 비교해 분석한다" }
+    ],
+    books:[
+      {title:"맹신자들", author:"에릭 호퍼(이민아 역)", publisher:"궁리출판", year:2024},
+      {title:"플랫폼 사회가 온다", author:"이재열 외", publisher:"한울아카데미", year:2021},
+      {title:"치유 산업에서 길을 찾다", author:"김재수", publisher:"매일경제신문사", year:2024}
+    ],
+    guide:"현대 사회의 변동 양상과 사회 운동에 관한 자료를 다양한 매체를 활용하여 수집하고, 이를 활용해 사회 운동의 유형과 특징을 정리한다."
+  },
+  // ---- III. 일상 문화와 문화 변동 ----
+  { unit:"III", unitTitle:"일상 문화와 문화 변동", code:"12사문03-01", textbookPages:"110~119쪽",
+    standard:"대중문화에 대한 다양한 관점을 비교하고, 일상적으로 접하는 사례를 중심으로 대중문화가 개인과 사회에 미치는 영향을 토의한다.",
+    keywords:["대중문화","리비스주의","문화 산업론","문화주의","취향 문화론"],
+    departments:["언론정보학과","예술관련학과","사회학과","심리학과"],
+    topics:[
+      { text:"매스 컬처와 파퓰러 컬처의 비교 탐구",
+        mid:"교과서의 오페라·빈 필하모닉(고급문화)과 힙합 문화(대중문화) 비교 자료를 참고해, 오늘날 매스 컬처와 파퓰러 컬처의 경계가 어떻게 흐려지는지 분석한다",
+        high:"리비스주의가 소설과 영화를 바라본 시각을 영화 「레디 플레이어 원」의 가상공간 '오아시스'에 적용해, 오늘날의 디지털 대중문화에도 유효한지 비판적으로 검토한다" },
+      { text:"대중문화의 성장으로 인한 긍정적·부정적 영향 탐구",
+        mid:"문화산업론이 말하는 '사회적 시멘트 효과'가 실제로 나타나는 대중문화 콘텐츠 사례를 찾아 분석한다",
+        high:"1930년대 전체주의 정권의 대중 조작 사례와 오늘날 알고리즘 기반 콘텐츠 추천을 비교해, 대중문화의 영향력이 형태만 바뀌어 지속되는지 논증한다" },
+      { text:"문화주의와 취향 문화론의 관점에서 한류 현상 분석",
+        mid:"리처드 호가트의 『교양의 효용』이 노동자 계급의 '살아있는 문화'를 보던 시각을 한류 팬덤 문화에 적용해 분석한다",
+        high:"문화주의(능동적 생산)와 구조주의(지배 이념 주입) 두 관점에서 한류의 해외 확산 과정을 각각 해석하고 어느 쪽이 더 설명력 있는지 논증한다" },
+      { text:"리비스주의와 문화 산업론의 관점에서의 웹툰 유행 현상 분석",
+        mid:"문화산업론이 대중음악을 비판한 논리를 인기 웹툰 한 편에 적용해, 상업적 생산 구조가 작품에 미친 영향을 분석한다",
+        high:"웹툰 플랫폼의 실제 수익 구조와 알고리즘 자료를 조사해 문화산업론의 주장을 데이터로 검증한다" }
+    ],
+    books:[
+      {title:"콘텐츠 자본의 시대", author:"유승호", publisher:"따비", year:2025},
+      {title:"대중문화의 이해", author:"김창남", publisher:"한울아카데미", year:2022},
+      {title:"케이팝 씬의 순간들", author:"김윤하 외", publisher:"미래의창", year:2024}
+    ],
+    guide:"대중문화에 대한 여러 관점에 대한 이해를 바탕으로 사례를 통해 대중문화가 개인의 가치관과 사회 구조에 미치는 영향을 탐구한다."
+  },
+  { unit:"III", unitTitle:"일상 문화와 문화 변동", code:"12사문03-02", textbookPages:"120~129쪽",
+    standard:"미디어의 효과에 대한 이해를 바탕으로 미디어가 생산하는 메시지를 비판적으로 분석하고 대안적 메시지 생산에 능동적으로 참여한다.",
+    keywords:["미디어","침묵의 나선 이론","문화 배양 이론","프레이밍 이론","의제 설정 이론"],
+    departments:["국어국문학과","광고홍보학과","언론정보학과","정치학과"],
+    topics:[
+      { text:"현대 사회의 미디어 이용 변화와 특징 분석",
+        mid:"OECD의 '우리나라 청소년 디지털 리터러시 교육 실태'(2021) 자료를 활용해 또래 학생들의 미디어 이용 변화를 분석한다",
+        high:"1인 미디어의 명암을 다룬 교과서 사례를 바탕으로, 1인 미디어가 전통 매스미디어와 어떻게 다른 영향력을 갖는지 맥콤스와 쇼의 의제 설정 이론으로 분석한다" },
+      { text:"미디어 리터러시의 중요성 및 역량 강화 방안 탐구",
+        mid:"조지 거브너의 문화 배양 이론을 적용해, 특정 장르 콘텐츠를 많이 본 또래가 실제로 인식 변화를 보이는지 간단한 설문으로 검증한다",
+        high:"OECD 디지털 리터러시 실태 자료와 해외 미디어 리터러시 교육 사례를 비교해 한국 학교 현장에 적용 가능한 프로그램을 제안한다" },
+      { text:"일상에서 자주 사용하는 미디어의 사례와 영향 분석",
+        mid:"어빙 고프먼의 프레이밍 이론을 적용해, 같은 사안을 다루는 미디어들의 보도 방식 차이를 분석한다",
+        high:"1938년 라디오 드라마 「우주 전쟁」이 일으킨 피난 소동 사례와 오늘날 가짜뉴스 확산 사례를 비교해, 미디어 효과 이론으로 공통점과 차이점을 분석한다" },
+      { text:"학교 문제 해결을 위한 대안적 메시지 활용 방안 탐구",
+        mid:"분리배출, 흡연구역 등 교내 실제 문제를 다루는 대안적 메시지(포스터, 카드뉴스)를 직접 제작해본다",
+        high:"제작한 대안적 메시지를 실제로 배포한 뒤, '침묵의 나선 이론'을 적용해 소수 의견이었던 문제의식이 여론으로 확산되는 과정을 관찰·기록한다" }
+    ],
+    books:[
+      {title:"더블 스피크", author:"윌리엄 러츠(유강은 역)", publisher:"교양인", year:2025},
+      {title:"죽도록 즐기기", author:"닐 포스트먼(홍윤선 역)", publisher:"굿인포메이션", year:2020},
+      {title:"페이크와 팩트", author:"데이비드 로버트 그라임스(김보은 역)", publisher:"디플롯", year:2024}
+    ],
+    guide:"미디어의 효과에 대한 이론의 관점을 바탕으로 미디어가 전달하는 메시지에 담긴 의도와 이면의 가치를 비판적으로 분석한다."
+  },
+  { unit:"III", unitTitle:"일상 문화와 문화 변동", code:"12사문03-03", textbookPages:"132~141쪽",
+    standard:"하위문화와 주류 문화의 관계에 대한 이해를 바탕으로 다문화 사회의 이주민 문화에 대한 서로 다른 관점을 비교하고, 이주민 문화가 갖는 의의에 기초하여 문화 다양성을 증진하기 위한 방안을 제시한다.",
+    keywords:["하위문화","대항문화","세대문화","이주민 문화","문화 다양성"],
+    departments:["문화인류학과","아동가족학과","지역학과","한국어교육학과"],
+    topics:[
+      { text:"하위문화의 상대성과 주류 문화가 된 하위문화 사례 탐구",
+        mid:"히피 문화가 대항 문화로 등장했다가 이후 주류 문화 일부로 흡수된 과정을 조사해 그 변화 조건을 분석한다",
+        high:"노인 문화처럼 그 자체로는 하위문화이지만 사회 전체에 영향을 미치는 세대 문화의 사례를 찾아, 하위문화-주류문화의 경계가 고정적이지 않음을 논증한다" },
+      { text:"이주민 문화에 대한 용광로 이론과 샐러드 볼 이론 비교 분석",
+        mid:"고대 로마의 동화주의 정책과 캐나다의 다문화주의 정책을 각각 용광로 이론·샐러드 볼 이론의 사례로 비교 분석한다",
+        high:"경기도 안산시 원곡동 다문화 마을 특구를 자료로 조사해, 이곳의 운영 방식이 용광로형인지 샐러드 볼형인지 실제 사례로 검증한다" },
+      { text:"하위문화와 대항 문화의 사례 탐구 및 공통점과 차이점 비교 분석",
+        mid:"수원 화성처럼 지역 문화가 형성되는 과정을 조사하고, 지역 문화와 하위문화·대항문화의 개념적 차이를 정리한다",
+        high:"히피 문화의 등장 배경과 오늘날 청년 하위문화의 등장 배경을 비교해, 대항문화로 발전하는 조건이 무엇인지 공통점을 도출한다" },
+      { text:"우리 사회에 정착한 이주민 문화 사례와 이주민 문화가 문화 다양성에 미친 영향 탐구",
+        mid:"안산시 원곡동 다문화 마을 특구의 실제 운영 사례를 조사해 지역사회에 미친 긍정적 영향을 분석한다",
+        high:"캐나다의 이주민 정책 사례와 비교해, 우리나라 다문화 정착 지역의 정책이 문화 다양성 증진에 충분한지 비판적으로 평가하고 보완안을 제안한다" }
+    ],
+    books:[
+      {title:"기울어진 교실", author:"서부원", publisher:"내일을여는책", year:2025},
+      {title:"의례를 통한 저항", author:"스튜어트 홀(임영호 역)", publisher:"컬처룩", year:2024},
+      {title:"나는 '보통'의 가족을 꿈꾸는 다문화 이주민입니다", author:"정종원 외", publisher:"노드", year:2023}
+    ],
+    guide:null
+  },
+  { unit:"III", unitTitle:"일상 문화와 문화 변동", code:"12사문03-04", textbookPages:"142~151쪽",
+    standard:"문화 변동의 다양한 요인과 양상, 문화 변동 과정에서 발생하는 문제점을 이해하고, 문화의 세계화로 인해 나타나는 쟁점에 대해 탐구한다.",
+    keywords:["문화 변동","문화 접변","문화 공존","문화 동화","문화 융합"],
+    departments:["고고학과","문화인류학과","사학과","지리학과"],
+    topics:[
+      { text:"발명과 발견으로 인한 문화 변동 사례 탐구",
+        mid:"체로키 문자의 발명처럼, 전파와 발명이 결합한 '자극 전파' 사례를 추가로 조사해 그 과정을 분석한다",
+        high:"AI 챗봇 표절 우려 사례를 문화 지체·기술 지체 개념으로 분석해, 기술 발전 속도와 제도·의식 변화 속도의 격차를 논증한다" },
+      { text:"다른 문화와 접촉 과정에서 나타난 문화 변동 사례 탐구",
+        mid:"트로브리안드 군도의 크리켓 문화 사례(영국 스포츠가 현지 의례로 변형된 사례)를 조사해 문화 접촉의 결과를 분석한다",
+        high:"일제 강점기의 강제적 문화 접변과 이누이트족의 자발적 문화 접변을 비교해, 같은 '문화 접변'이라도 강제성에 따라 결과가 어떻게 달라지는지 논증한다" },
+      { text:"문화의 세계화 과정에서 나타난 긍정적·부정적 영향 및 해결 방안 탐구",
+        mid:"태국 물 축제가 세계적인 문화 축제로 발돋움한 사례와 라다크의 전통이 세계화로 사라진 사례를 대조해 분석한다",
+        high:"테오도르 레빗이 처음 제시한 '세계화' 개념을 기준으로, 세계화가 문화에 미치는 영향이 균질화인지 다양화인지 두 사례를 근거로 논증한다" },
+      { text:"문화 접변 결과 나타난 문화 공존, 문화 동화, 문화 융합 사례 및 영향 탐구",
+        mid:"트로브리안드 크리켓 사례가 문화 동화·병존·융합 중 어디에 해당하는지 분석하고 이유를 제시한다",
+        high:"이누이트족의 자발적 문화 접변 사례를 시간순으로 추적해, 동화에서 공존, 혹은 융합으로 변화해 간 과정을 종단적으로 분석한다" }
+    ],
+    books:[
+      {title:"유럽을 알아야 세상이 보인다", author:"안계환", publisher:"nobook", year:2022},
+      {title:"인터넷 때문에", author:"그레천 매컬러(강동혁 역)", publisher:"어크로스", year:2022},
+      {title:"청소년을 위한 위대한 발명·발견", author:"박익수", publisher:"전파과학사", year:2025}
+    ],
+    guide:"문화 변동 과정에서 나타나는 사회적 문제와 세계화로 인한 쟁점을 구체적 사례와 연결하여 분석하며, 다양한 시각을 균형 있게 이해한다."
+  },
+  // ---- IV. 사회 불평등과 사회 복지 ----
+  { unit:"IV", unitTitle:"사회 불평등과 사회 복지", code:"12사문04-01", textbookPages:"160~169쪽",
+    standard:"사회 불평등 현상을 이해하는 서로 다른 관점을 비교하고, 사회 이동과 사회 계층 구조의 유형 및 특징을 분석한다.",
+    keywords:["사회 불평등 현상","사회 이동","사회 이동의 유형","사회 계층 구조","사회 계층 구조의 유형"],
+    departments:["법학과","사회복지학과","정치학과","행정학과"],
+    topics:[
+      { text:"사회 이동의 유형과 영향 탐구",
+        mid:"교과서의 '사회 이동을 경험한 사람'의 인물 사례를 분석해 세대 간 이동인지 세대 내 이동인지, 수직 이동인지 수평 이동인지 분류한다",
+        high:"통계청의 '국민이 생각하는 사회 이동 가능성'(2023) 조사 결과를 분석해 인식과 실제 이동률 사이에 차이가 있는지 검증한다" },
+      { text:"우리나라 사회 계층 구조의 변화 양상 탐구",
+        mid:"피라미드형·다이아몬드형·모래시계형 계층 구조 중 우리나라가 어디에 가까운지 최근 통계로 판단해본다",
+        high:"「인공지능과 미래의 불평등, 그리고 민주주의」 논문의 핵심 주장을 정리하고, 지식·정보 사회로의 전환이 모래시계형 계층 구조를 심화시키는지 논증한다" },
+      { text:"기능론적 관점에서 사회 불평등 현상의 원인과 영향 탐구",
+        mid:"직무에 따른 성과급 차등 지급 사례(언론 보도)를 기능론의 입장에서 그 정당성을 분석한다",
+        high:"'능력주의를 이해하는 서로 다른 관점' 자료를 바탕으로, 능력주의가 기능론적으로 정당화되는 동시에 비판받는 지점을 모두 짚어 비판적으로 평가한다" },
+      { text:"갈등론적 관점에서 사회 불평등 현상의 원인과 영향 탐구",
+        mid:"정규직과 비정규직 간 차이를 보도한 언론 사례를 갈등론의 입장에서 분석한다",
+        high:"소설 『레 미제라블』의 장발장 사례를 갈등론의 틀로 재해석해, 빈곤과 범죄가 개인의 문제가 아니라 구조적 불평등의 결과임을 논증한다" }
+    ],
+    books:[
+      {title:"시험 능력주의", author:"김동춘", publisher:"창비", year:2022},
+      {title:"부르디외 읽기", author:"정선기", publisher:"세창미디어", year:2024},
+      {title:"아이들의 계급 투쟁", author:"브래디 미카코(노수경 역)", publisher:"사계절", year:2019}
+    ],
+    guide:"사회 이동의 실제 사례와 계층 구조의 특징을 함께 분석하여 이론과 현실을 연결한다."
+  },
+  { unit:"IV", unitTitle:"사회 불평등과 사회 복지", code:"12사문04-02", textbookPages:"170~179쪽",
+    standard:"현대 사회에서 나타나는 다양한 사회 불평등 양상을 분석하고, 차별받는 사람들의 입장에 대한 공감을 바탕으로 다양한 불평등 현상에 대한 해결 방안을 모색한다.",
+    keywords:["빈곤","절대적 빈곤","상대적 빈곤","성 불평등","사회적 소수자 차별"],
+    departments:["사회학과","보건행정학과","여성학과","특수교육학과"],
+    topics:[
+      { text:"학교 내 성 불평등 사례 탐구",
+        mid:"통계청·인사혁신처의 성 불평등 통계를 활용해 학교라는 작은 사회에서도 비슷한 양상이 나타나는지 조사한다",
+        high:"성별에 따른 차별적 사회화 개념을 적용해, 교내 성 불평등이 사회화 과정에서부터 어떻게 형성되는지 추적·분석한다" },
+      { text:"절대적 빈곤과 상대적 빈곤의 비교 분석",
+        mid:"통계청의 우리나라 상대적 빈곤율 자료와 보건복지부의 중위 소득 기준 변화 자료를 비교해 빈곤 측정 방식의 변화를 분석한다",
+        high:"'빈곤의 책임, 누구에게 있을까?' 교과서 시사 자료를 바탕으로, 절대적·상대적 빈곤 중 어느 개념이 빈곤의 사회적 책임을 더 잘 설명하는지 논증한다" },
+      { text:"웹툰이나 드라마 속 사회적 소수자 사례 탐구",
+        mid:"세계 인권 선언 제2조를 기준으로, 웹툰·드라마 속 사회적 소수자 묘사가 그 기준에 부합하는지 평가한다",
+        high:"시각 장애인이 혼자 사용하기 어려운 시설 사례처럼, 미디어 속 소수자 재현이 실제 차별적 환경과 어떻게 연결되는지 분석한다" },
+      { text:"불평등 현상의 해결 방안으로서 공간의 중요성 탐구",
+        mid:"결혼 이민자가 겪는 차별 사례(언론 보도)를 거주 지역·공간과 연결해 분석한다",
+        high:"'빈곤이 개인에게 미치는 영향' 자료와 일자리 박람회 같은 실제 정책 사례를 비교해 공간적 해결 방안의 효과를 비판적으로 평가한다" }
+    ],
+    books:[
+      {title:"기울어진 평등", author:"토마 피케티 외(장경덕 역)", publisher:"와이즈베리", year:2025},
+      {title:"다정한 세계를 위한 공부", author:"니콜 칼리스(유라영 역)", publisher:"유노책주", year:2025},
+      {title:"왜 우리는 차별과 혐오에 지배당하는가?", author:"이라영 외", publisher:"철수와영희", year:2024}
+    ],
+    guide:null
+  },
+  { unit:"IV", unitTitle:"사회 불평등과 사회 복지", code:"12사문04-03", textbookPages:"182~191쪽",
+    standard:"복지 국가의 발전 과정에 대한 이해를 바탕으로 사회 복지 제도의 유형과 특징을 비교하고, 현대 사회에서 나타나고 있는 사회 복지를 둘러싼 쟁점을 토론한다.",
+    keywords:["사회 복지 제도","생산적 복지","보편적 복지","선별적 복지"],
+    departments:["간호학과","공공정책학과","노인복지학과","통계학과"],
+    topics:[
+      { text:"복지 국가의 발전 과정 탐구",
+        mid:"베버리지 보고서와 미국의 사회보장법(1935)을 비교해, 영미권 복지국가 발전의 공통점과 차이점을 정리한다",
+        high:"우리나라의 생활보호법(1961)→의료보험법(1976)→사회보장기본법(1995) 발전 과정을 베버리지 보고서의 이상과 비교해 그 특수성을 논증한다" },
+      { text:"생산적 복지의 등장 배경 및 관련 제도 탐구",
+        mid:"영국의 '복지병' 사례와 근로장려금 제도의 효과 자료를 비교해 생산적 복지가 등장한 배경을 분석한다",
+        high:"근로장려금 제도의 실제 효과 자료를 비판적으로 검토해, 생산적 복지(근로연계 복지)가 의도한 효과를 충분히 내고 있는지 평가한다" },
+      { text:"사회 보험과 공공 부조의 특징 분석 및 사례 탐구",
+        mid:"사회 보험과 민간 보험의 차이를 정리한 뒤, 국민기초생활보장제도의 맞춤형 급여 체계를 공공 부조의 사례로 분석한다",
+        high:"'복지 사각지대 발굴 시스템' 사례를 조사해 사회 보험·공공 부조 모두가 놓치는 사각지대가 왜 발생하는지 구조적으로 분석한다" },
+      { text:"보편적 복지와 선별적 복지의 등장 배경 및 장단점 비교 분석",
+        mid:"OECD·한국경제연구원 자료를 활용해 보편적 복지와 선별적 복지가 적용된 실제 정책의 장단점을 비교한다",
+        high:"기초연금 제도가 보편적·선별적 복지 중 어느 성격에 가까운지 분석하고, 두 복지 논쟁의 실제 통계(수혜율, 재정부담)로 균형점을 찾는 정책을 제안한다" }
+    ],
+    books:[
+      {title:"나는 멜버른의 케어러", author:"루아나", publisher:"메멘토", year:2025},
+      {title:"모두의 사회 모두의 디자인", author:"임세연", publisher:"진인진", year:2025},
+      {title:"내 집이 꼭 있어야 할까?", author:"서윤영", publisher:"철수와영희", year:2025}
+    ],
+    guide:"복지 국가의 발전 과정에서 나타난 여러 사회 복지 제도의 유형과 특징을 비교하고, 변화의 요인을 함께 탐구한다."
+  }
+];
+
+const UNIT_ORDER = ["I","II","III","IV"];
+
+/* ---------- 서론·본론·결론 템플릿 생성기 (예시 기사 전용) ---------- */
+function buildLead(topicText, keywords){
+  const kw = keywords.slice(0,2).join('·');
+  return `"${topicText}"에 관심을 갖게 된 계기를 먼저 적어보자. 일상 속에서 ${kw}를 마주친 경험이나 뉴스, 수업 중 떠올랐던 질문이면 충분하다. 본격적인 조사에 들어가기 전, 핵심 개념의 의미를 교과서에서 먼저 확인해 둔다.`;
+}
+function buildConceptStep(standard, pages, keywords){
+  const kw = keywords.join(', ');
+  return `금성 교과서 ${pages}의 내용을 바탕으로 ${kw} 등 핵심 개념을 정리하고, "${standard}"라는 성취기준이 의미하는 바를 자신의 언어로 풀어 써본다.`;
+}
+function buildConclusion(topicText){
+  return `이번 탐구를 통해 "${topicText}"에 대해 새롭게 알게 된 점과 처음 생각에서 달라진 점을 정리해보자. 자료를 찾고 분석하는 과정에서 어떤 역량(비판적 사고력, 자료 해석 능력, 공감 능력 등)이 성장했는지도 함께 적어본다.`;
+}
+
+/* ---------- 예시 기사 렌더링 (DATA[0]의 첫 번째 주제 사용) ---------- */
+function renderExample(){
+  const entry = DATA[0];
+  const topic = entry.topics[0];
+  const lead = buildLead(topic.text, entry.keywords);
+  const concept = buildConceptStep(entry.standard, entry.textbookPages, entry.keywords);
+  const conclusion = buildConclusion(topic.text);
+  const guideBlock = entry.guide ? `
+      <div class="body-step">
+        <span class="step-tag" style="background:var(--ink-soft)">선생님 GUIDE · 세특 활동집</span>
+        <p class="step-text">${entry.guide}</p>
+      </div>` : '';
+
+  document.getElementById('exampleArticle').innerHTML = `
+    <div class="example-kicker">${entry.unit}면 · ${entry.unitTitle} · 주제 1</div>
+    <h3 class="example-headline">${topic.text}</h3>
+    <p class="example-lead">${lead}</p>
+    <div class="example-body">
+      <div class="body-step">
+        <span class="step-tag">본론 ① 개념 정리</span>
+        <p class="step-text">${concept}</p>
+      </div>
+      <div class="body-step">
+        <span class="step-tag">본론 ② 교과서 사례 분석 · 금성 교과서</span>
+        <p class="step-text">${topic.mid}</p>
+      </div>
+      <div class="body-step">
+        <span class="step-tag">본론 ③ 자료로 검증·확장 · 금성 교과서</span>
+        <p class="step-text">${topic.high}</p>
+      </div>${guideBlock}
+      <div class="body-step conclusion">
+        <span class="step-tag">결론</span>
+        <p class="step-text">${conclusion}</p>
+      </div>
+    </div>
+  `;
+}
+
+function buildUnits(){
+  const root = document.getElementById('unitContainer');
+
+  UNIT_ORDER.forEach((unit) => {
+    const entries = DATA.filter(d => d.unit === unit);
+    if(!entries.length) return;
+
+    const block = document.createElement('div');
+    block.className = 'section-block';
+
+    const topicCount = entries.reduce((sum,e)=>sum+e.topics.length,0);
+
+    const header = document.createElement('button');
+    header.type = 'button';
+    header.className = 'section-header';
+    header.setAttribute('aria-expanded','false');
+    header.innerHTML = `
+      <span class="section-label">제 ${unit} 면</span>
+      <span class="section-title">${entries[0].unitTitle}</span>
+      <span class="section-count">${entries.length}개 성취기준 · ${topicCount}개 주제</span>
+      <span class="section-chev">▾</span>
+    `;
+
+    const body = document.createElement('div');
+    body.className = 'section-body';
+    body.hidden = true;
+
+    entries.forEach(entry => {
+      const group = document.createElement('div');
+      group.className = 'std-group';
+
+      const byline = document.createElement('div');
+      byline.className = 'std-byline';
+      byline.innerHTML = `<span class="src-tag">${entry.code}</span><span>금성 교과서 ${entry.textbookPages}</span>`;
+      group.appendChild(byline);
+
+      const standfirst = document.createElement('p');
+      standfirst.className = 'std-standfirst';
+      standfirst.textContent = entry.standard;
+      group.appendChild(standfirst);
+
+      const kwLine = document.createElement('div');
+      kwLine.className = 'std-keywords';
+      kwLine.innerHTML = '핵심어 — ' + entry.keywords.map(k=>`<b>${k}</b>`).join(' · ');
+      group.appendChild(kwLine);
+
+      entry.topics.forEach((t, ti) => {
+        const row = document.createElement('div');
+        row.className = 'topic-row';
+
+        const guideBlock = entry.guide ? `
+            <div class="detail-block guide-block">
+              <div class="detail-tag">선생님 GUIDE · 세특 탐구 주제 활동집</div>
+              <p class="detail-text">${entry.guide}</p>
+            </div>` : '';
+
+        row.innerHTML = `
+          <div class="topic-kicker">주제 ${ti+1}</div>
+          <h4 class="topic-title">${t.text}</h4>
+          <button class="tab-expand" type="button"><span class="tab-icon">▾</span><span class="tab-label">사례 보기</span></button>
+          <div class="topic-detail" hidden>
+            <div class="detail-block">
+              <div class="detail-tag">교과서 사례 (본론②) · 금성 교과서</div>
+              <p class="detail-text">${t.mid}</p>
+            </div>
+            <div class="detail-block">
+              <div class="detail-tag">더 깊이 들어가기 (본론③) · 금성 교과서</div>
+              <p class="detail-text">${t.high}</p>
+            </div>${guideBlock}
+          </div>
+        `;
+
+        const btn = row.querySelector('.tab-expand');
+        const detail = row.querySelector('.topic-detail');
+        const icon = row.querySelector('.tab-icon');
+        const label = row.querySelector('.tab-label');
+        btn.addEventListener('click', () => {
+          const isHidden = detail.hidden;
+          detail.hidden = !isHidden;
+          btn.classList.toggle('active', isHidden);
+          icon.textContent = isHidden ? '▴' : '▾';
+          label.textContent = isHidden ? '접기' : '사례 보기';
+        });
+
+        group.appendChild(row);
+      });
+
+      const sidebar = document.createElement('div');
+      sidebar.className = 'sidebar-box';
+      let sidebarHtml = `<h4>관련 학과</h4><div class="dept-chips">${entry.departments.map(d=>`<span>${d}</span>`).join('')}</div>`;
+      sidebarHtml += `<h4>함께 보면 좋은 책</h4>` + entry.books.map(b =>
+        `<div class="book">「${b.title}」 <span class="meta">${b.author}, ${b.publisher}, ${b.year}</span></div>`
+      ).join('');
+      if(entry.guide){
+        sidebarHtml += `<h4>데스크 노트</h4><p class="desk-note">${entry.guide}</p>`;
+      }
+      sidebar.innerHTML = sidebarHtml;
+      group.appendChild(sidebar);
+
+      body.appendChild(group);
+    });
+
+    header.addEventListener('click', () => {
+      const isOpen = block.classList.contains('open');
+      block.classList.toggle('open', !isOpen);
+      header.setAttribute('aria-expanded', String(!isOpen));
+      body.hidden = isOpen;
+      syncToggleAllLabel();
+    });
+
+    block.appendChild(header);
+    block.appendChild(body);
+    root.appendChild(block);
+  });
+}
+
+function syncToggleAllLabel(){
+  const blocks = document.querySelectorAll('.section-block');
+  const allOpen = Array.from(blocks).every(b => b.classList.contains('open'));
+  document.getElementById('toggleAllBtn').textContent = allOpen ? '전체 접기' : '전체 펼치기';
+}
+
+document.getElementById('toggleAllBtn').addEventListener('click', () => {
+  const blocks = document.querySelectorAll('.section-block');
+  const allOpen = Array.from(blocks).every(b => b.classList.contains('open'));
+  const target = !allOpen;
+  blocks.forEach(b => {
+    b.classList.toggle('open', target);
+    const header = b.querySelector('.section-header');
+    const body = b.querySelector('.section-body');
+    header.setAttribute('aria-expanded', String(target));
+    body.hidden = !target;
+  });
+  syncToggleAllLabel();
+});
+
+renderExample();
+buildUnits();
+</script>
+</body>
+</html>
